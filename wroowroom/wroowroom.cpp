@@ -29,8 +29,31 @@ public:
         this->cost = car.cost;
     }
 
+    // move constructor
+    WroomWroom(WroomWroom&& car)
+    {
+        this->mark = std::move(car.mark);
+        this->model = std::move(car.model);
+        this->releaseYear = std::move(car.releaseYear);
+        this->colour = std::move(car.colour);
+        this->runTime = std::move(car.runTime);
+        this->cost = std::move(car.cost);
+    }
+
+    // move = operator
+    WroomWroom& operator= (WroomWroom&&)
+    {
+        this->mark = std::move(car.mark);
+        this->model = std::move(car.model);
+        this->releaseYear = std::move(car.releaseYear);
+        this->colour = std::move(car.colour);
+        this->runTime = std::move(car.runTime);
+        this->cost = std::move(car.cost);
+        return *this;
+    }
+
     // = operator
-    WroomWroom operator= (WroomWroom const& car) 
+    WroomWroom& operator= (WroomWroom const& car) 
     {
         this->mark = car.mark;
         this->model = car.model;
@@ -41,6 +64,8 @@ public:
 
         return *this;
     }
+
+    
 
     //destructor
     ~WroomWroom() = default;
@@ -81,11 +106,26 @@ protected:
         this->waigt = pack.waigt;
     }
 
+    // Move constructor
+    PackDash(PackDash&& pack)
+    {
+        std::swap(nmae, pack.nmae);
+        std::swap(waigt, pack.waigt);
+    }
+
     //Operator =
-    PackDash operator=(PackDash pack)
+    PackDash& operator=(PackDash pack)
     {
         this->nmae = pack.nmae;
         this->waigt = pack.waigt;
+        return *this;
+    }
+
+    // Move operator =
+    PackDash& operator=(PackDash&& pack)
+    {
+        std::swap(nmae, pack.nmae);
+        std::swap(waigt, pack.waigt);
         return *this;
     }
 
@@ -129,6 +169,37 @@ public:
         this->load = car.load;
     }
 
+    // Move constructor
+    BigWroom(BigWroom&& car)
+    {
+        // das a lotta fields, not gonna bother
+        this->mark = car.mark;
+        this->model = car.model;
+        this->releaseYear = car.releaseYear;
+        this->colour = car.colour;
+        this->runTime = car.runTime;
+        this->cost = car.cost;
+
+        this->maxPayn = car.maxPayn;
+        this->load = car.load;
+    }
+
+    // MOve operator =
+    BigWroom operator=(BigWroom&& car)
+    {
+        // could've tried std::forward, but too lazy
+        this->mark = car.mark;
+        this->model = car.model;
+        this->releaseYear = car.releaseYear;
+        this->colour = car.colour;
+        this->runTime = car.runTime;
+        this->cost = car.cost;
+
+        this->maxPayn = car.maxPayn;
+        this->load = car.load;
+
+        return *this;
+    }
     //Operator =
     BigWroom operator=(BigWroom const& car)
     {
