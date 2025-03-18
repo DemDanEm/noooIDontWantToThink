@@ -70,7 +70,7 @@ protected:
     std::string nmae;
     unsigned int waigt;
 
-public:
+//public: Yep, i just commented the public directive, what are you gonna do about it
     // Constructor
     PackDash(std::string nae, int whip): nmae(nae), waigt(whip){}
 
@@ -97,6 +97,10 @@ public:
 
     int get_weight() { return waigt; }
     std::string get_name() { return nmae; }
+
+    // Pretty lazy, but who cares
+    friend class BigWroom;
+    friend std::ostream& operator<< (std::ostream& strim, PackDash pack);
 };
 
 class BigWroom final : WroomWroom
@@ -155,8 +159,9 @@ public:
         return weight > this->maxPayn;
     }
 
-    // Made sense to add theese two
-    void add_load(PackDash const& pack) {
+    // Remade this one to include Pack constructor
+    void add_load(const std::string& name, unsigned weight) {
+        PackDash pack(name, weight);
         load.push_back(pack);
     }
 
@@ -165,6 +170,13 @@ public:
         load.clear();
     }
 };
+
+// Overloadin std::cout for package
+std::ostream& operator<< (std::ostream& strim, PackDash pack)
+{
+    strim << pack.nmae << ": " << pack.waigt;
+    return strim;
+}
 
 // Overloadin std::cout
 std::ostream& operator<< (std::ostream& st, WroomWroom wr) {
